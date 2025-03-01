@@ -8,10 +8,11 @@ main:
     li a0 40   # 10 ints, 4 bytes each
     jal malloc # malloc is defined in utils.s
     mv t0 a0   # the pointer is returned in a0
+    mv t3 a0
 
     # Fill the array with 0's
     li t1 0  # t1 is the index
-    li t2 10 # t2 is the size of the array
+    li t2 9 # t2 is the size of the array
 
 loop:
     # Store 0 at the current index
@@ -24,6 +25,8 @@ loop:
     # If not, loop
     bge t2 t1 loop
 
+    mv a0 t3
+    jal free
     # Exit the program
     li a0 0
     jal exit
