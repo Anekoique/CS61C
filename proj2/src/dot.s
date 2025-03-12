@@ -18,27 +18,43 @@
 #     this function terminates the program with error code 37
 # =======================================================
 dot:
-
+    ebreak
     # Prologue
-
+    addi t0 x0 1
+    bge a2 t0 loop_start
+    addi a0 x0 36
+    j exit
+    
+error_exit:
+    addi a0 x0 37
+    j exit
 
 loop_start:
+    blt a3 t0 error_exit
+    blt a4 t0 error_exit
+    addi t0 x0 0
+    addi t1 x0 0
+    j loop_continue
 
+loop_continue:
+    bge t0 a2 loop_end
+    
+    lw t2 0(a0)
+    lw t3 0(a1)
+    mul t2 t2 t3
+    add t1 t1 t2
+    
+    addi t0 t0 1 
+    slli t2 a3 2
+    add a0 a0 t2
+    slli t2 a4 2
+    add a1 a1 t2
 
-
-
-
-
-
-
-
-
-
+    j loop_continue
 
 loop_end:
-
-
+    mv a0 t1
     # Epilogue
-
-
     jr ra
+    
+
