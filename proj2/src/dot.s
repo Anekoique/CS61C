@@ -18,7 +18,6 @@
 #     this function terminates the program with error code 37
 # =======================================================
 dot:
-    ebreak
     # Prologue
     addi t0 x0 1
     bge a2 t0 loop_start
